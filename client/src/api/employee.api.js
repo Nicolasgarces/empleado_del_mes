@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-export const getAllEmployees = () => {
-   return axios.get('http://localhost:8000/api/persons/')
-}
+const peopleApi = axios.create({
+   baseURL: 'http://localhost:8000/api/persons/'
+})
 
-export default getAllEmployees
+export const getAllPeople = () => peopleApi.get('/');
+
+export const createPerson = (person) => peopleApi.post("/", person)

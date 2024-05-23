@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
-import getAllEmployees from '../api/employee.api.js'
+import { getAllPeople } from '../api/employee.api.js'
+import EmployeeCard from "./EmployeeCard.jsx";
 
 export function EmployeeList() {
 
 const [ employees, setEmployees] = useState([])
 
 useEffect(()=> {
+  //la funcion carga los empleados
  async  function loadEmployees() {
-     const res = await getAllEmployees()
+      //llama el metodo para traer los empleados del back
+     const res = await getAllPeople()
      console.log(res);
+     //guarda los empleados
      setEmployees(res.data);
     }
     loadEmployees() 
@@ -16,9 +20,7 @@ useEffect(()=> {
 
   return <div>
     {employees.map(employee => (
-        <div>
-            <h3>Employee: {employee.name} CC: {employee.identification}</h3>
-        </div>
+        <EmployeeCard key={employee.id} employee={employee}/>
     ))}
   </div>
 }
